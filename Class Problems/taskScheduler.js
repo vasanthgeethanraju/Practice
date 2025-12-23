@@ -28,7 +28,6 @@ class Task {
     this.priority = priority;
     this.done = false;
   }
-
 };
 
 const s = new TaskScheduler();
