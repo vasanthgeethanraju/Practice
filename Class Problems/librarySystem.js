@@ -1,32 +1,10 @@
 // 🔟 Library System (Composition + Multiple Classes)
 // Goal: Work with multiple object types interacting.
-
 // Create:
-
-// Book:
-
-// title, author
-
-// Member:
-
-// name
-
-// Library:
-
-// stores:
-
-// list of books
-
-// which member has borrowed which book
-
-// methods:
-
-// addBook(book)
-
-// registerMember(member)
-
-// borrowBook(title, memberName) → returns "BORROWED" or "NOT_AVAILABLE"
-
+// Book: title, author
+// Member: name
+// Library: stores: list of books, which member has borrowed which book
+// methods: addBook(book), registerMember(member), borrowBook(title, memberName) → returns "BORROWED" or "NOT_AVAILABLE"
 // getBorrowedBooks(memberName) → list of book titles
 
 
@@ -106,3 +84,51 @@ console.log(lib.getBorrowedBooks("Vasanth"));
 // ["Book A"]
 // []
 
+// version 2: (the better version) => pushing book title directly, getting the index and splicing, then retrieve book name directly
+// class Book {
+//   constructor(title, author) {
+//     this.title = title;
+//     this.author = author;
+//   }
+// }
+
+// class Member {
+//   constructor(name) {
+//     this.name = name;
+//   }
+// }
+
+// class Library {
+//   constructor() {
+//     this.books = [];
+//     this.members = [];
+//     this.booksBorrowed = {};
+//   }
+//   addBook(book){
+//     if(book !== "") {
+//       this.books.push(book.title);
+//     }
+//   }
+//   registerMember(member){
+//     if(member !== "" && !this.members.includes(member)) {
+//       this.members.push(member.name);
+//       this.booksBorrowed[member.name] = [];
+//     }
+//   }
+//   borrowBook(book, member) {
+//     if (this.members.includes(member) && this.books.includes(book)) {
+//       this.booksBorrowed[member].push(book);
+//       this.books.splice(this.books.indexOf(book), 1);
+//       return "BORROWED";
+//     } else {
+//       return "NOT_AVAILABLE";
+//     }
+//   }
+//   getBorrowedBooks(member) {
+//     if(this.members.includes(member)) {
+//       return this.booksBorrowed[member];
+//     } else {
+//       return [];
+//     }
+//   }
+// }

@@ -1,38 +1,27 @@
 // 6️⃣ Order Processing Pipeline (Composition + Small Workflow)
 // Goal: Chain multiple collaborating classes.
-
 // Create classes:
-
-// OrderValidator:
-
-// validate(order) → returns true or false
-
-// OrderPricing:
-
-// calculateTotal(order) → uses items and price
-
-// OrderService:
-
-// uses both validator + pricing
-
-// placeOrder(order):
-
-// if invalid → returns "INVALID"
-
-// else → returns "TOTAL: <amount>"
-
+// OrderValidator: validate(order) → returns true or false
+// OrderPricing: calculateTotal(order) → uses items and price
+// OrderService: uses both validator + pricing
+// placeOrder(order): if invalid → returns "INVALID" else → returns "TOTAL: <amount>"
 
 class OrderValidator {
-    validate(order) {
-      if(!order || order.items.length === 0 || !Array.isArray(order.items)) {
-        return false;
-      }
-  
-      return order.items.every(item => 
-        typeof item.price === "number" && typeof item.qty === "number" &&
-        item.qty > 0 && item.price > 0 
-      );
-  
+  validate(order) {
+    if(!order || order.items.length === 0 || !Array.isArray(order.items)) {
+      return false;
+    }
+
+    return order.items.every(item => 
+      typeof item.price === "number" && typeof item.qty === "number" &&
+      item.qty > 0 && item.price > 0 
+    );
+
+    //return order && order.items.length > 0 && 
+        //  order.items.every(item => item.name !== "" && 
+        //                    typeof item.price === 'number' && item.price > 0 && 
+        //                    typeof item.qty === 'number' && item.qty > 0);
+
     }
   }
   
