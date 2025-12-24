@@ -1,0 +1,123 @@
+You said:
+
+"Design a flight booking system. The system should support multiple airlines and be easily extendable. Require an object-oriented design (OOP) and the use of appropriate design patterns, with a complete class diagram and explanation of relationships between classes."
+
+
+
+This was a question asked in an OOP based interview by a big company. Can you search and find questions like this and give all such OOP questions asked in interviews company-wide, so we can work on them and practice?
+
+This type of question belongs to the Low-Level Design (LLD) or Machine Coding round of technical interviews. Unlike System Design (which focuses on scaling, databases, and load balancers), these interviews test your ability to convert requirements into clean, modular, and extensible code using Object-Oriented Programming (OOP) principles.
+
+Below is a comprehensive collection of similar OOP design questions asked at companies like Amazon, Google, Meta, Microsoft, and Uber, categorized for structured practice.
+
+I. Booking & Reservation Systems
+These are the most common LLD questions because they test relationship management (User ↔ Booking ↔ Service).
+
+Design a Movie Ticket Booking System (e.g., BookMyShow)
+
+Core Concepts: Concurrency (locking seats so two people don't book the same one), multiple cinemas/halls, seat types (VIP, Regular).
+
+Design a Hotel Management System
+
+Core Concepts: Room types, guest check-in/out, housekeeping status, billing, seasonal pricing strategies.
+
+Design a Car Rental System (e.g., Zoomcar/Hertz)
+
+Core Concepts: Inventory management, vehicle availability dates, damage logs, insurance add-ons, barcode scanning.
+
+Design a Library Management System
+
+Core Concepts: Fine calculation strategies, book reservation limits, different item types (Books, CDs, Magazines), distinct user roles (Librarian vs. Member).
+
+Design a Parking Lot System (Classic Amazon/Google Question)
+
+Core Concepts: Vehicle sizes (Small, Medium, Large) fitting into specific spots, multiple floors, pricing strategies (hourly vs. daily), entry/exit gates.
+
+II. Real-World Object Simulations
+These test your ability to model state machines and complex logic.
+
+Design an Elevator System
+
+Core Concepts: Scheduling algorithms (SCAN/LOOK) to decide which floor to service next, multiple elevators coordinating, states (Moving Up, Moving Down, Idle).
+
+Design a Vending Machine
+
+Core Concepts: State design pattern (Idle → MoneyInserted → Dispensing), handling change (greedy algorithm for coins), inventory restocking.
+
+Design an ATM
+
+Core Concepts: Transaction atomicity, authentication, dispensing logic (count bills), singleton pattern for the bank switch connection.
+
+Design a Coffee Machine
+
+Core Concepts: Decorator pattern (Base coffee + Milk + Sugar + Caramel), beverage cost calculation.
+
+Design a Traffic Signal Control System
+
+Core Concepts: Timer management, observer pattern (lights changing state), handling emergency overrides.
+
+III. Games (Logic & Rules)
+These focus on defining rules, turns, and winning conditions clearly.
+
+Design a Chess Game
+
+Core Concepts: Board representation, move validation strategy for each piece (Knight vs. Bishop), check/checkmate logic, history (undo move).
+
+Design a Deck of Cards / Blackjack
+
+Core Concepts: Shuffling algorithms, suit/rank enums, scoring logic (Aces = 1 or 11), player vs. dealer inheritance.
+
+Design Snake and Ladder
+
+Core Concepts: Board generation, dice rolling (randomness), player movement, jumps (Snakes/Ladders).
+
+Design Tic-Tac-Toe
+
+Core Concepts: N x N board scalability, O(1) winning condition check algorithm.
+
+IV. Enterprise & Management Software
+Design an Expense Sharing Application (e.g., Splitwise)
+
+Core Concepts: Graph simplification (minimizing transactions between group members), exact vs. percentage splits, expense groups.
+
+Design a Warehouse Management System
+
+Core Concepts: Product placement strategies (nearest available rack), layout topology, order fulfillment pipelines.
+
+Design an Online Shopping Platform (e.g., Amazon)
+
+Core Concepts: Search filters (Specification pattern), Shopping Cart (temporary storage), Order processing (State pattern: Placed → Shipped → Delivered), Notifications.
+
+Design a Logging Framework (e.g., Log4j)
+
+Core Concepts: Chain of Responsibility (Debug → Info → Error), different appenders (File, Console, Database), formatting strategies.
+
+How to Practice These Questions
+To ace these interviews, do not just "code" the solution. Follow this standard rubric used by interviewers:
+
+Clarify Requirements: Ask about scope. (e.g., "For the parking lot, do we need to handle electric vehicle charging stations?")
+
+Define Core Classes: List the nouns. (e.g., Vehicle, ParkingSpot, Ticket, Gate).
+
+Establish Relationships: Use a diagram. (e.g., One ParkingLot has many Floors; One Floor has many Spots).
+
+Apply Design Patterns:
+
+Factory Pattern: To create different vehicle/seat types.
+
+Strategy Pattern: For pricing algorithms or movement logic.
+
+Singleton Pattern: For the central controller or database connection.
+
+Observer Pattern: For notifying users (e.g., "Your cab has arrived").
+
+Write Clean Code: Use Interfaces/Abstract classes rather than concrete implementations where possible.
+
+Helpful Resource
+For a concrete walkthrough of one of the most popular questions in this category, this video breaks down the Parking Lot problem step-by-step using proper industry standards.
+
+Amazon System Design Interview: Parking Lot Architecture
+
+The video above is relevant because the "Parking Lot" problem is the quintessential OOD interview question; mastering its structure (spots, vehicles, fees) provides a template you can apply to almost any other resource allocation problem like the Flight Booking system.
+
+Would you like me to select one of these problems (e.g., the Elevator System or Splitwise) and simulate the interview by solving it with you step-by-step?
