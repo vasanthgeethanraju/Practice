@@ -1,0 +1,62 @@
+
+OOP Design Interview Questions (Real Examples from Tech Companies)
+
+Below is a list of object-oriented design (OOD) interview questions that have been asked in actual company interviews. These are low-level design problems where candidates are expected to define classes, relationships, and use appropriate design principles/patterns. Each example includes a brief description and evidence of it being a real interview question:
+
+Design a Flight Booking System – Design the class structure for an airline reservation platform that supports multiple airlines, flight schedules, seat inventory, etc. For example, Flipkart and other companies have asked candidates to design a flight booking/reservation system in interviews
+geeksforgeeks.org
+glassdoor.com
+. This tests extensible OOP design (often involving patterns for search, booking, payments, etc.).
+
+Design a Parking Lot System – Model a parking lot with multiple levels, parking spots of various sizes, and different vehicle types. This is one of the most popular OOD questions, commonly asked at companies like Google, Amazon, Apple, Gojek, etc.
+medium.com
+. The design typically involves classes for ParkingLot, Levels, Spots, Vehicles, Tickets, etc., and often uses principles like inheritance (for vehicle types) and maybe design patterns for parking allocation.
+
+Design a Chess Game – Define classes for a two-player chess game (Board, Spot, Piece hierarchy for King/Queen/Rook/etc., Move, Player, Game). This classic question has been asked in interviews at Adobe, Amazon, Microsoft, etc.
+geeksforgeeks.org
+ to assess object-oriented modeling. Candidates need to handle piece movements and game rules with proper class design (often using inheritance for pieces and possibly patterns like Factory for move generation).
+
+Design a Movie Ticket Booking System (e.g. BookMyShow) – Create an OOP design for an online movie ticketing platform with theaters, screens, shows, seats, bookings, payments, etc. Variations of this problem have appeared in company interviews (e.g. Park+ and Flipkart asked candidates to design a “BookMyShow” system)
+glassdoor.com
+leetcode.com
+. It involves class design for entities like Movie, Theater, Show, Seat, Booking, Payment, etc., focusing on relationships and interactions between these objects.
+
+Design an Expense Sharing (“Splitwise”) System – Design a bill-splitting application where multiple users can share expenses, record transactions, and settle balances. This low-level design question has been frequently asked in machine coding rounds at companies like OpenTable, ShareChat, ClearTax, Groww, etc.
+medium.com
+. The OOD solution typically includes classes like User, Expense, Split, Group, and uses principles to calculate each person’s owed amount (sometimes using strategy patterns for different split modes).
+
+Design an Elevator System – Model a system controlling multiple elevators in a building. You’ll need to handle elevator state, movement, request scheduling (allocating elevators to requests), etc. This is a well-known OOD interview question (asked at companies such as VMware, among others)
+glassdoor.co.uk
+ and is considered “one of the famous LLD problems being asked in interviews”
+geeksforgeeks.org
+. The design often involves classes like Elevator, ElevatorController, Request, and may use a state machine or strategy pattern for scheduling algorithms.
+
+Design a Hotel Management System – Create a class design for managing hotel operations: hotel branches, rooms of different types, bookings/reservations, check-in/out, etc. Interviewers at big companies have used this scenario (for instance, Amazon’s low-level design round included a question similar to designing a Hotel Management System)
+reddit.com
+. Key classes might include Hotel, Room (with subclasses for room types), Booking, Guest, Payment, etc., focusing on relationships like aggregation (hotel has rooms) and use of design patterns if needed.
+
+Design a Vending Machine – Develop an OOP design for a vending machine that dispenses products. The system should handle inventory of items, accept money, return change, and allow selection of products. This has been an actual interview question at a major tech company
+medium.com
+ and is a popular OOD exercise in Java interviews
+javarevisited.blogspot.com
+. A good design uses classes like VendingMachine, Item, Coin, and often the State design pattern to manage the machine’s states (Idle, HasMoney, Dispensing, OutOfStock, etc.)
+medium.com
+.
+
+Design an ATM Machine – Object-oriented design for an ATM, supporting operations like cash withdrawal, deposit, balance inquiry, etc., with proper user account authentication. For example, Amazon interviewers have asked candidates to design an ATM system
+leetcode.com
+. The design typically includes classes such as ATM, Account, Card, Transaction, CashDispenser, etc., and must consider relationships (ATM contains cash cassettes, ATM serves multiple Accounts) and possibly use of state/strategy patterns for transaction processing.
+
+Design a Deck of Cards / Card Game (e.g. Blackjack) – Design classes to represent a standard 52-card deck and use it in a game like blackjack or poker. This involves modeling Cards (with Suit and Rank), a Deck (with shuffle and deal operations), Hands, and maybe a Game engine. This question has been reported in interviews (notably Amazon asked a version involving deck shuffling)
+reddit.com
+. The expected solution often uses OOP concepts like inheritance (if modeling specific card games) or just composition for deck and cards, and emphasizes clean design for dealing, shuffling, comparing cards, etc.
+
+Design a Car Rental System – Create an OOD for a service like a car rental or ride-sharing system. It should handle vehicle inventory, customer reservations, rentals, and payment calculation. This has appeared in interview questions (e.g. a Tableau Software interview asked to design a car rental system)
+glassdoor.ie
+. Likely classes include Car (and subclasses for vehicle types), Reservation, User, Payment, and perhaps a RentalService manager. The design should allow extension for different vehicle types and rental policies.
+
+Design an Online Shopping/E-Commerce Platform – Provide an object-oriented design for an online shopping system (like a simplified Amazon). This would include a Product catalog, a Shopping Cart, Orders, Users (customers, sellers), Payment processing, etc. Amazon and other companies have used this question to test OOD skills
+blogs.dikshaarora.com
+. Key classes might be Product, User, Cart, Order, Payment, with relationships like an Order containing OrderItems, etc., and demonstrating principles like abstraction and composition in the design.
+
+Each of these questions is a real previously asked interview problem, so practicing them can help you prepare for OOP design rounds. They require thinking in terms of classes, their attributes and behaviors, relationships (association, inheritance, composition), and often applying design patterns to make the design scalable and flexible. Good luck with your practice!
