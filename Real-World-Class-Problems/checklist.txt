@@ -1,0 +1,5 @@
+// Given an array, find four numbers that satisfy y = mx + n. (The approach is to first use two for loops to find all possible values ​​of mx
+// and store them in a hash map. Then use two more for loops to calculate y-n and check if it exists in the hash map.)
+
+//Assign players to teams. There are many players, and their nicknames can be repeated. How to assign them to teams to minimize the number of players with the same nickname in each team? 
+// (This question doesn't require any special technique; just sort by nickname, and then assign players with the same nickname to different teams.)

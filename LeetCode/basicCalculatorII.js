@@ -17,8 +17,8 @@ function calculate(s) {
       i++;
       continue;
     }
-    if (ch >= '0' && ch <= '9') {
-      num = num * 10 + (ch.charCodeAt(0) - 48);
+    if (ch >= '0' && ch <= '9') { 
+      num = num * 10 + (ch.charCodeAt(0) - 48); // 3*2 = 6 (num = 3) num = 2
     } else {
       if (op === '+') {
         total += prev;
@@ -31,7 +31,7 @@ function calculate(s) {
       } else {
         prev = (prev / num) | 0;
       }
-      op = ch;
+      op = ch; // op = *, prev = 3, total = 0, num = 3
       num = 0;
     }
     i++;
@@ -40,5 +40,5 @@ function calculate(s) {
   return total;
 }
 
-const s = " 3/2 ";
+const s = "3-2*5";
 console.log(calculate(s));

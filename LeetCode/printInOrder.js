@@ -1,54 +1,73 @@
 //leetcode 1114 
 // This is a classic concurrency / multithreading interview question
-
+// without a new class
 class Foo {
-    constructor() {
-      // Gate 1: opened when first() completes
-      this.firstDone = new Promise((resolve) => {
-        this._resolveFirst = resolve;
-      });
-  
-      // Gate 2: opened when second() completes
-      this.secondDone = new Promise((resolve) => {
-        this._resolveSecond = resolve;
-      });
-    }
-  
-    async printFirst(printFirst) {
-      // printFirst() outputs "first". Do not change or remove this line.
-      printFirst();
-  
-      // Signal that first is done
-      this._resolveFirst();
-    }
-  
-    async printSecond(printSecond) {
-      // Wait until first() has completed
-      await this.firstDone;
-  
-      // printSecond() outputs "second". Do not change or remove this line.
-      printSecond();
-  
-      // Signal that second is done
-      this._resolveSecond();
-    }
-  
-    async printThird(printThird) {
-      // Wait until second() has completed
-      await this.secondDone;
-  
-      // printThird() outputs "third". Do not change or remove this line.
-      printThird();
-    }
+  constructor() {
+    this.firstDone = new Promise((resolve) => {
+      this._resolveFirst = resolve;
+    });
+    this.secondDone = new Promise((resolve) => {
+      this._resolveSecond = resolve;
+    });
   }
 
-  // Example usage:
-  const foo = new Foo();
-  foo.printFirst(() => console.log("first"));
-  foo.printSecond(() => console.log("second"));
-  foo.printThird(() => console.log("third"));
+  async printFirst(printFirst) {
+    printFirst();
+    this._resolveFirst();
+  }
 
-  // Output:
-  // first
-  // second
-  // third
+  async printSecond(printSecond) {
+    await this.firstDone;
+    printSecond();
+    this._resolveSecond();
+  }
+
+  async printThird(printThird) {
+    await this.secondDone;
+    printThird();
+  }
+}
+
+// with new class holding the common promise/resolve logic
+// class Deferred {
+//   constructor() {
+//     this.promise = new Promise((resolve) => {
+//       this.resolve = resolve;
+//     });
+//   }
+// }
+
+// class Foo {
+//   constructor() {
+//     this.firstDone = new Deferred();
+//     this.secondDone = new Deferred();
+//   }
+
+//   async printFirst(printFirst) {
+//     printFirst();
+//     this.firstDone.resolve();
+//   }
+
+//   async printSecond(printSecond) {
+//     await this.firstDone.promise;
+//     printSecond();
+//     this.secondDone.resolve();
+//   }
+
+//   async printThird(printThird) {
+//     await this.secondDone.promise;
+//     printThird();
+//   }
+// }
+
+
+// Example usage:
+const foo = new Foo();
+foo.printFirst(() => console.log("first"));
+foo.printSecond(() => console.log("second"));
+foo.printThird(() => console.log("third"));
+
+// Output:
+// first
+// second
+// third
