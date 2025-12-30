@@ -3,12 +3,12 @@
 // Design the class structure and provide interface details and sample code for each function.
 // Simple Flight Booking System for Interview
 class Flight {
-  constructor(flightNumber, from, to) {
+  constructor(flightNumber, from, to, totalSeats) {
     this.flightNumber = flightNumber;
     this.from = from;
     this.to = to;
-    this.totalSeats = 1;
-    this.availableSeats = 1;
+    this.totalSeats = totalSeats;
+    this.availableSeats = totalSeats;
     this.bookedSeats = new Set();
   }
 }
@@ -31,11 +31,11 @@ class FlightBookingSystem {
   }
 
   // Add new flight
-  addFlight(flightNumber, from, to) {
+  addFlight(flightNumber, from, to, totalSeats) {
     if (this.flights.has(flightNumber)) {
       throw new Error('Flight already exists');
     }
-    const flight = new Flight(flightNumber, from, to);
+    const flight = new Flight(flightNumber, from, to, totalSeats);
     this.flights.set(flightNumber, flight);
     return `Flight ${flightNumber} added successfully`;
   }
@@ -117,8 +117,8 @@ const system = new FlightBookingSystem();
 
 // 1. Add flights
 console.log('1. Adding Flights:');
-console.log(system.addFlight('AI101', 'NYC', 'LAX'));
-console.log(system.addFlight('AI102', 'NYC', 'SFO'));
+console.log(system.addFlight('AI101', 'NYC', 'LAX', 3));
+console.log(system.addFlight('AI102', 'NYC', 'SFO', 3));
 console.log();
 
 // 2. Book tickets
