@@ -136,27 +136,11 @@ class TicketPriceCalculator {
 
   // Process multiple ticket requests
   processTickets(inputs) {
-    const results = [];
-    
-    for (const input of inputs) {
-      try {
-        const [airline, miles, seatingClass] = input.split(',').map(s => s.trim());
-        const cost = this.calculateTicket(airline, parseFloat(miles), seatingClass);
-        results.push({
-          input,
-          cost: cost.toFixed(2),
-          success: true
-        });
-      } catch (error) {
-        results.push({
-          input,
-          error: error.message,
-          success: false
-        });
-      }
-    }
-    
-    return results;
+    return inputs.map(input => {
+      const [airline, miles, seatingClass] = input.split(',').map(s => s.trim());
+      const cost = this.calculateTicket(airline, parseFloat(miles), seatingClass);
+      return cost.toFixed(2);
+    });
   }
 }
 
@@ -180,30 +164,6 @@ const testInputs = [
 console.log('Processing tickets:\n');
 const results = calculator.processTickets(testInputs);
 
-results.forEach(result => {
-  if (result.success) {
-    console.log(`${result.input} → $${result.cost}`);
-  } else {
-    console.log(`${result.input} → ERROR: ${result.error}`);
-  }
+results.forEach((cost, index) => {
+  console.log(`${testInputs[index]} → $${cost}`);
 });
-
-console.log('\n=== Detailed Calculation Examples ===\n');
-
-// Example 1: United Economy
-console.log('United, 100 miles, Economy:');
-console.log('  Operating Cost: $0');
-console.log('  United: $0.50/mile');
-console.log('  Total: $50.00\n');
-
-// Example 2: Southwest Premium
-console.log('Southwest, 100 miles, Premium:');
-console.log('  Operating Cost: min($0.10 * 100, $25) = $10');
-console.log('  Southwest: $0.75/mile + Operating + $0.10/mile (premium)');
-console.log('  Total: $75 + $10 + $10 = $95.00\n');
-
-// Example 3: American Business
-console.log('American, 100 miles, Business:');
-console.log('  Operating Cost: $50 + $0.25 * 100 = $75');
-console.log('  American: max(2 * $75, $1 * 100) = max($150, $100)');
-console.log('  Total: $150.00');
