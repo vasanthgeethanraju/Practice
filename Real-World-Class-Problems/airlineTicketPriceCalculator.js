@@ -142,6 +142,16 @@ class TicketPriceCalculator {
       return cost.toFixed(2);
     });
   }
+
+  // if needed to do in just 1 method, can use the below code:
+  // processTickets(inputs) {
+  //   return inputs.map(input => {
+  //     const [airline, miles, seatingClass] = input.split(",").map(s=> s.trim());
+  //     const airlineClass = this.airlines.get(airline.toLowerCase());
+  //     const cost = airlineClass.calculatePrice(miles, seatingClass);
+  //     return cost.toFixed(2);
+  //   })
+  // }
 }
 
 // Demo Usage
