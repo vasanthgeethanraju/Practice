@@ -36,3 +36,5 @@ function minNumberOfFrogs(croakOfFrogs) {
 
   return maxActive;
 }
+
+console.log(minNumberOfFrogs("croakcroak"));
