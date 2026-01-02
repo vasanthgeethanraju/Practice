@@ -1,4 +1,5 @@
-function isValid(str) {
+// Leetcode #49
+function groupAnagrams(str) {
   let map = {};
 
   for (let s of str) {
@@ -14,4 +15,4 @@ function isValid(str) {
 };
 
 const str = ["eat","tea","tan","ate","nat","bat"];
-console.log(isValid(str));
+console.log(groupAnagrams(str));
