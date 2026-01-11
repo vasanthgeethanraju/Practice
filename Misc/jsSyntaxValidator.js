@@ -20,3 +20,4 @@ function isValidJavaScriptSyntax(code) {
 // Examples:
 console.log(isValidJavaScriptSyntax("var x = 5;")); // true
 console.log(isValidJavaScriptSyntax("var x = ;"));  // false
+console.log(isValidJavaScriptSyntax("if(2 > 3) { } else {console.log(1)}"));  // true

@@ -3,6 +3,99 @@
 // This is a well-known OOD interview question (asked at companies such as VMware, among others) and is considered “one of the famous LLD problems being asked in interviews”. 
 // The design often involves classes like Elevator, ElevatorController, Request, and may use a state machine or strategy pattern for scheduling algorithms.
 
+class Elevator {
+  constructor(id, startFloor = 0) {
+    this.id = id;
+    this.floor = startFloor;
+    this.targets = []; // simple FIFO queue of floors
+  }
+
+  addTarget(floor) {
+    // avoid duplicates for cleanliness (optional)
+    if (!this.targets.includes(floor)) this.targets.push(floor);
+  }
+
+  step() {
+    if (this.targets.length === 0) return;
+
+    const target = this.targets[0];
+
+    if (this.floor < target) this.floor += 1;
+    else if (this.floor > target) this.floor -= 1;
+
+    // reached target
+    if (this.floor === target) {
+      this.targets.shift();
+    }
+  }
+
+  status() {
+    return { id: this.id, floor: this.floor, targets: [...this.targets] };
+  }
+}
+
+class ElevatorSystem {
+  constructor(numElevators, startFloor = 0) {
+    this.elevators = Array.from({ length: numElevators }, (_, i) => {
+      return new Elevator(i + 1, startFloor);
+    });
+  }
+
+  // external request (hall call)
+  requestPickup(floor) {
+    const elevator = this._nearestElevator(floor);
+    elevator.addTarget(floor);
+    return elevator.id;
+  }
+
+  // internal request (car call)
+  requestDropoff(elevatorId, floor) {
+    const elevator = this.elevators.find((e) => e.id === elevatorId);
+    elevator.addTarget(floor);
+  }
+
+  step() {
+    for (const e of this.elevators) e.step();
+  }
+
+  _nearestElevator(floor) {
+    let best = this.elevators[0];
+    let bestDist = Math.abs(best.floor - floor);
+
+    for (const e of this.elevators) {
+      const d = Math.abs(e.floor - floor);
+      if (d < bestDist) {
+        best = e;
+        bestDist = d;
+      }
+    }
+    return best;
+  }
+
+  snapshot() {
+    return this.elevators.map((e) => e.status());
+  }
+}
+
+// ----- Demo -----
+const system = new ElevatorSystem(2, 0);
+
+console.log("Initial:", system.snapshot());
+
+// Someone at floor 5 requests pickup
+const eid = system.requestPickup(5);
+console.log("Assigned elevator:", eid);
+
+// Inside that elevator, user presses 9
+system.requestDropoff(eid, 9);
+
+// simulate ticks
+for (let t = 1; t <= 12; t++) {
+  system.step();
+  console.log(`Tick ${t}:`, system.snapshot());
+}
+
+
 // const Direction = Object.freeze({
 //   UP: "UP",
 //   DOWN: "DOWN",
@@ -482,96 +575,3 @@
 //   controller.step();
 //   console.log(`Tick ${t}:`, controller.snapshot());
 // }
-
-
-class Elevator {
-  constructor(id, startFloor = 0) {
-    this.id = id;
-    this.floor = startFloor;
-    this.targets = []; // simple FIFO queue of floors
-  }
-
-  addTarget(floor) {
-    // avoid duplicates for cleanliness (optional)
-    if (!this.targets.includes(floor)) this.targets.push(floor);
-  }
-
-  step() {
-    if (this.targets.length === 0) return;
-
-    const target = this.targets[0];
-
-    if (this.floor < target) this.floor += 1;
-    else if (this.floor > target) this.floor -= 1;
-
-    // reached target
-    if (this.floor === target) {
-      this.targets.shift();
-    }
-  }
-
-  status() {
-    return { id: this.id, floor: this.floor, targets: [...this.targets] };
-  }
-}
-
-class ElevatorSystem {
-  constructor(numElevators, startFloor = 0) {
-    this.elevators = Array.from({ length: numElevators }, (_, i) => {
-      return new Elevator(i + 1, startFloor);
-    });
-  }
-
-  // external request (hall call)
-  requestPickup(floor) {
-    const elevator = this._nearestElevator(floor);
-    elevator.addTarget(floor);
-    return elevator.id;
-  }
-
-  // internal request (car call)
-  requestDropoff(elevatorId, floor) {
-    const elevator = this.elevators.find((e) => e.id === elevatorId);
-    elevator.addTarget(floor);
-  }
-
-  step() {
-    for (const e of this.elevators) e.step();
-  }
-
-  _nearestElevator(floor) {
-    let best = this.elevators[0];
-    let bestDist = Math.abs(best.floor - floor);
-
-    for (const e of this.elevators) {
-      const d = Math.abs(e.floor - floor);
-      if (d < bestDist) {
-        best = e;
-        bestDist = d;
-      }
-    }
-    return best;
-  }
-
-  snapshot() {
-    return this.elevators.map((e) => e.status());
-  }
-}
-
-// ----- Demo -----
-const system = new ElevatorSystem(2, 0);
-
-console.log("Initial:", system.snapshot());
-
-// Someone at floor 5 requests pickup
-const eid = system.requestPickup(5);
-console.log("Assigned elevator:", eid);
-
-// Inside that elevator, user presses 9
-system.requestDropoff(eid, 9);
-
-// simulate ticks
-for (let t = 1; t <= 12; t++) {
-  system.step();
-  console.log(`Tick ${t}:`, system.snapshot());
-}
