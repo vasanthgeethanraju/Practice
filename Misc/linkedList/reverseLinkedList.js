@@ -1,3 +1,7 @@
+// LeetCode #206 ✔️
+// ===============================
+// 1) Linked List Node Definition
+// ===============================
 class ListNode {
   constructor(val, next = null) {
     this.val = val;
@@ -5,25 +9,29 @@ class ListNode {
   }
 }
 
-// Helper: build linked list from array
+// ===============================
+// 2) Build Linked List from Array
+// ===============================
 function buildList(arr) {
   let dummy = new ListNode(0);
   let tail = dummy;
 
-  for (let val of arr) {
-    tail.next = new ListNode(val);
+  for (const x of arr) {
+    tail.next = new ListNode(x);
     tail = tail.next;
   }
 
   return dummy.next;
 }
 
-// Helper: convert linked list to array (for printing output)
-function listToArray(head) {
+// ===============================
+// 3) Convert Linked List to Array
+// ===============================
+function toArray(head) {
   const res = [];
   let curr = head;
 
-  while (curr) {
+  while (curr !== null) {
     res.push(curr.val);
     curr = curr.next;
   }
@@ -31,33 +39,53 @@ function listToArray(head) {
   return res;
 }
 
+// ===============================
+// Problem: Reverse Linked List
+// Input:  10 -> 20 -> 30 -> null
+// Output: 30 -> 20 -> 10 -> null
+// ===============================
 function reverseList(head) {
-  // TODO 1: Initialize a previous pointer as null
+  // TODO 1: Create prev = null
+
+  // TODO 2: Create curr = head
+
+  // TODO 3: While curr is not null:
+  //   - store nextNode = curr.next
+  //   - reverse pointer: curr.next = prev
+  //   - move prev forward: prev = curr
+  //   - move curr forward: curr = nextNode
+
+  // TODO 4: Return prev (new head)
+
   let prev = null,
-  // TODO 2: Initialize a current pointer as head
       curr = head;
-  // TODO 3: While current exists:
-  //   - Save next node
-  //   - Reverse current.next pointer to previous
-  //   - Move previous forward
-  //   - Move current forward
-  while(curr) {
-    const next = curr.next;
+
+  while(curr !== null) {
+    const nextNode = curr.next;
     curr.next = prev;
     prev = curr;
-    curr = next;
+    curr = nextNode;
+    // [curr.next, prev, curr] = [prev, curr, curr.next];
   }
 
-  // TODO 4: Return previous pointer (new head)
   return prev;
 }
 
-// Input
-const head = buildList([1, 2, 3, 4]);
+// LeetCode #206 ✔️
+// ===============================
+// Tests
+// ===============================
+const head1 = buildList([10, 20, 30]);
+console.log("Before:", toArray(head1));                 // expected: [10, 20, 30]
+const reversed1 = reverseList(head1);
+console.log("After :", toArray(reversed1));             // expected: [30, 20, 10]
 
-// Call
-const reversedHead = reverseList(head);
+const head2 = buildList([99]);
+console.log("Before:", toArray(head2));                 // expected: [99]
+const reversed2 = reverseList(head2);
+console.log("After :", toArray(reversed2));             // expected: [99]
 
-// Output
-console.log(listToArray(reversedHead)); 
-// Expected Output: [4, 3, 2, 1]
+const head3 = buildList([6, 7, 8, 9, 10]);
+console.log("Before:", toArray(head3));                 // expected: []
+const reversed3 = reverseList(head3);
+console.log("After :", toArray(reversed3));             // expected: []
