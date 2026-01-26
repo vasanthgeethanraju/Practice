@@ -1,0 +1,18 @@
+🧭 Final Interview-Ready Checklist for DSA(⭐ Recommended Order)
+If you want a perfect prep sequence, follow this:
+
+1. Arrays & Hashing
+2. Two Pointers / Sliding Window
+3. Stacks & Queues
+4. Linked Lists
+5. Binary Search
+6. Trees
+7. Heaps
+8. Graphs
+9. Intervals
+10. Greedy
+11. Backtracking
+12. Dynamic Programming
+13. Trie
+14. Union-Find
+15. Bit Manipulation
