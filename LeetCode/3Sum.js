@@ -5,7 +5,6 @@
 // LeetCode 15 - 3Sum
 function threeSum(nums) {
   // TODO 1: Sort nums ascending
-  // nums.sort((a, b) => a - b);
   nums.sort((a,b) => a - b);
 
   const res = [];

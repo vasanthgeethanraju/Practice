@@ -14,37 +14,26 @@ class Solution {
 
     let set  = new Set(nums),
         best = 0,
-        bestStart = null; // needed if we want to actual sequence (not part of leetcode ask)
+        res = []; // needed if we want to actual sequence (not part of leetcode ask)
 
     for(let x of set) {
       if(set.has(x-1)) continue;
 
-      let cur =x, len =1;
+      let cur =x, len =1, curr = [cur];
       while(set.has(cur+1)){
-          cur++, len++;
+        cur++, len++;
+        // curr.push(cur);
       }
-      // best = Math.max(best, len);
-      // keep your original line
-      // const prevBest = best;
-      best = Math.max(best, len);
 
-      // if best changed, that means this sequence is the new best
-      // if (best !== prevBest) {
-      //   bestStart = x;
+      // if(len > best) {
+      //   best = len;
+      //   res = curr;
       // }
+      best = Math.max(best, len);
     }
 
-    
-    // build the actual best sequence
-    // const sequence = [];
-    // if (bestStart !== null) {
-    //   for (let i = 0; i < best; i++) {
-    //     sequence.push(bestStart + i);
-    //   }
-    // }
-
-    // return { best, sequence };
     return best;
+    // return { best, res };
   }
 }
 

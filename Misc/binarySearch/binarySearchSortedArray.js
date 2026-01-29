@@ -1,10 +1,8 @@
 function searchRotated(nums, target) {
-  // TODO 1: Initialize left and right pointers
   let left  = 0,
       right = nums.length - 1;
-  // TODO 2: While left <= right:
+
   while (left <= right) {
-  //   - Compute mid
     let mid = Math.floor((left + right ) / 2);
     //   - If nums[mid] == target, return mid
     if(nums[mid] === target) return mid;
@@ -35,9 +33,7 @@ function searchRotated(nums, target) {
       }
     }
   }
-
-  // TODO 3: Return -1 if not found
-  return -1
+  return -1;
 }
 
 const nums2 = [4, 5, 6, 7, 0, 1, 2];
