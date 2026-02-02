@@ -1,0 +1,65 @@
+// LeetCode Problem #104: Maximum Depth of Binary Tree
+// ==========
+//        10
+//       /  \
+//      5    20
+//          /
+//         15
+//
+// ==========
+// TreeNode definition (given in interview)
+function TreeNode(val) {
+  this.val = val;
+  this.left = null;
+  this.right = null;
+}
+
+// Tree construction
+const root1 = new TreeNode(10);
+root1.left = new TreeNode(5);
+root1.right = new TreeNode(20);
+root1.right.left = new TreeNode(15);
+
+// ================================
+// TODO: IMPLEMENT THIS FUNCTION
+// ================================
+function maxDepth(root) {
+  // TODO 1: If root is null, return 0
+
+  // TODO 2: Recursively compute the maximum depth of the left subtree
+  
+  // TODO 3: Recursively compute the maximum depth of the right subtree
+  
+  // TODO 4: Return 1 + the maximum of left and right depths
+  // if(!root) return 0;
+
+  // let leftDepth  = maxDepth(root.left),
+  //     rightDepth = maxDepth(root.right);
+
+  // return 1 + Math.max(leftDepth, rightDepth);
+
+  // if iterative
+  if(!root) return 0;
+  let stack = [[root, 1]], maxDepth = 0;
+
+  while(stack.length > 0) {
+    let [node, depth] = stack.pop();
+
+    if(node) {
+      maxDepth = Math.max(maxDepth, depth);
+      
+      stack.push([node.left, depth + 1]);
+      stack.push([node.right, depth + 1]);
+    }
+  }
+
+  return maxDepth;
+}
+
+
+const root2 = new TreeNode(1);
+const root3 = null;
+
+console.log(maxDepth(root1)); // expected: 3
+console.log(maxDepth(root2)); // expected: 1
+console.log(maxDepth(root3)); // expected: 0

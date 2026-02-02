@@ -24,28 +24,38 @@
 // t2 is added on at the end.
 // `Output: t4,t3,t1,t2`
 
-function process(arr2) {
-  // console.log(arr1, arr2);
-  for (let i=0; i < arr2.length; i++){
-    if(Array.isArray(arr2[i])) {
-      let innerArray = arr2[i],
-          firstElem = innerArray[0],
-          secondElem = innerArray[1];
+function process(arr) {
+  function dfs(arr) {
+    let result = [];
 
-      if(firstElem === "E") {
-        // arr2 = arr2.filter(ar => ar !== secondElem);
-        arr2.splice(i, 1);
-        arr2.unshift(secondElem);
-        i--;
+    for (let i = 0; i < arr.length; i++) {
+      if (Array.isArray(arr[i])) {
+        let [operator, ...operands] = arr[i];
+        
+        if (operator === "E") {
+          // Expedite: Process the operand and move to front
+          let processed = dfs(operands);
+          result.unshift(...processed);
+        } else if (operator === "S") {
+          // Swap: Process each operand separately, then swap
+          let first = dfs([operands[0]]);
+          let second = dfs([operands[1]]);
+          result.push(...second, ...first);
+        }
+      } else {
+        result.push(arr[i]);
       }
     }
+
+    return result;
   }
 
-  return arr2;
+  return dfs(arr);
 }
 
-let arr1= ["t1", "t2", "t3"],
-arr2 = ["t1", ["E", "t2"], "t3"]
-
-console.log(process(arr2));
-
+// Test cases
+console.log(process(["t1", "t2", "t3"])); // Output: ["t1", "t2", "t3"]
+console.log(process(["t1", ["E", "t2"], "t3"])); // Output: ["t2", "t1", "t3"]
+console.log(process(["t1", ["E", "t2"], ["S", "t3", "t4"]])); // Output: ["t2", "t1", "t4", "t3"]
+console.log(process([["S", "t1", ["S", "t3", "t4"]], "t2"])); // Output: ["t4", "t3", "t1", "t2"]
+console.log(process(['t1',['E',['S','t2',['E','t3']]]])); // Output: ["t2", "t3", "t1"]

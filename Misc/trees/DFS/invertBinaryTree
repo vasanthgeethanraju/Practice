@@ -1,0 +1,118 @@
+function TreeNode(val) {
+  this.val = val;
+  this.left = null;
+  this.right = null;
+}
+
+// ================================
+// Test Case 1
+//
+//      1
+//     / \
+//    2   3
+//
+// After invert:
+//      1
+//     / \
+//    3   2
+// ================================
+const t1 = new TreeNode(1);
+t1.left = new TreeNode(2);
+t1.right = new TreeNode(3);
+
+// ================================
+// Test Case 2 (deeper tree)
+//
+//        4
+//       / \
+//      2   7
+//     / \ / \
+//    1  3 6  9
+//
+// After invert (mirror):
+//
+//        4
+//       / \
+//      7   2
+//     / \ / \
+//    9  6 3  1
+// ================================
+const t2 = new TreeNode(4);
+t2.left = new TreeNode(2);
+t2.right = new TreeNode(7);
+t2.left.left = new TreeNode(1);
+t2.left.right = new TreeNode(3);
+t2.right.left = new TreeNode(6);
+t2.right.right = new TreeNode(9);
+
+// ================================
+// Helper to check results (preorder traversal)
+// Preorder for original t1: [1, 2, 3]
+// Preorder for inverted t1: [1, 3, 2]
+// ================================
+function preorder(root) {
+  const res = [];
+  const stack = root ? [root] : [];
+  while (stack.length) {
+    const node = stack.pop();
+    res.push(node.val);
+    if (node.right) stack.push(node.right);
+    if (node.left) stack.push(node.left);
+  }
+  return res;
+}
+
+// ================================
+// TODO: IMPLEMENT THIS FUNCTION
+// ================================
+function invertTree(root) {
+  // TODO 1: If root is null, return null
+
+  // TODO 2: Swap root.left and root.right
+
+  // TODO 3: Recursively invert the left subtree
+
+  // TODO 4: Recursively invert the right subtree
+
+  // TODO 5: Return root
+
+  // if(!root) return null;
+
+  // let temp = root.left;
+  // root.left = root.right;
+  // root.right = temp;
+
+  // invertTree(root.left);
+  // invertTree(root.right);
+
+  // return root;
+
+  if(!root) return null;
+
+  let stack = [root];
+
+  while(stack.length > 0) {
+    let node = stack.pop();
+
+    if(node) {
+      let temp = node.left;
+      node.left = node.right;
+      node.right = temp;
+  
+      stack.push(node.left);
+      stack.push(node.right);
+    }
+  }
+  return root;
+}
+
+// ================================
+// Test calls
+// ================================
+console.log(preorder(t1));          // expected before invert: [1, 2, 3]
+invertTree(t1);
+console.log(preorder(t1));          // expected after invert:  [1, 3, 2]
+
+console.log(preorder(t2));          // expected before invert: [4, 2, 1, 3, 7, 6, 9]
+invertTree(t2);
+console.log(preorder(t2));          // expected after invert:  [4, 7, 9, 6, 2, 3, 1]
