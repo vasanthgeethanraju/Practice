@@ -39,11 +39,10 @@ function buildTree(preorder, inorder) {
   // TODO
   if(!preorder && !inorder) return null;
 
-  let inOrderMap = new Map();
+  let inOrderMap = new Map(), preorderIndex = 0;
 
   inorder.forEach((value, index) => inOrderMap.set(value, index));
 
-  let preorderIndex = 0;
 
   function buildSubTree(inLeft, inRight) {
     if(inLeft > inRight) return null;
