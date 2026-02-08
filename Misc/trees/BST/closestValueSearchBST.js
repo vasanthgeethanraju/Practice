@@ -137,7 +137,7 @@ function closestKValues(root, target, k) {
     } else {
       const predVal = Math.abs(preds[preds.length - 1].val - target);
       const succVal = Math.abs(succs[succs.length - 1].val - target);
-      if (predVal < succVal) {
+      if (predVal <= succVal) {
         result.push(getPredecessor());
       } else {
         result.push(getSuccessor());
