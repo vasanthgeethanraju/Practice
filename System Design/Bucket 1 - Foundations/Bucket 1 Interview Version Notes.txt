@@ -1,0 +1,23 @@
+1.1 Client–Server Architecture (Interview Version)
+
+“In a client–server architecture, the client is responsible for user interaction and initiating requests, while the server processes those requests and returns responses. Servers exist as a centralized and trusted layer because clients cannot be trusted with secure or shared data, cannot efficiently store large datasets, and cannot coordinate data across multiple users. By centralizing business logic and data on servers, systems can enforce security, maintain consistency, and scale independently of client devices.”
+
+1.2 IP Addresses & Ports (Interview Version)
+
+“IP addresses identify which machine a client should connect to on a network, while ports identify which specific service on that machine should receive the request. A single machine can host multiple services simultaneously by listening on different ports. When a client connects to an IP and port combination, the operating system routes the request to the correct service. This separation allows multiple applications to run on the same server without conflict.”
+
+1.3 DNS – Domain Name System (Interview Version)
+
+“DNS is a distributed naming system that translates human-readable domain names into IP addresses that computers can understand. When a client requests a domain, DNS resolution happens in stages, starting from local caches and moving through recursive resolvers and DNS hierarchy layers such as root, TLD, and authoritative servers if needed. DNS is heavily cached to improve performance and reliability, and authoritative DNS servers act as the source of truth for domain-to-IP mappings.”
+
+1.4 HTTP vs HTTPS & TLS (Interview Version)
+
+“HTTP defines how clients and servers exchange requests and responses, but it does not provide encryption or identity verification. HTTPS is HTTP over TLS, which encrypts all communication, verifies server identity using certificates, and ensures data integrity. During the TLS handshake, the server presents a certificate that the client verifies before any data is exchanged. Only after a secure channel is established does HTTP traffic flow, protecting against interception and tampering.”
+
+1.5 Forward Proxy vs Reverse Proxy (Interview Version)
+
+“A forward proxy sits on the client side and makes requests to servers on behalf of the client, hiding the client’s identity from the server and enabling access control, logging, and caching. A reverse proxy sits in front of application servers and acts as the single entry point for clients. It hides internal server details, handles TLS termination, routing, load balancing, and security concerns. The reverse proxy decides which backend application server should receive the request, forwards the request to that server, and returns the response to the client, while application servers focus on business logic and data.”
+
+1.6 Latency (Interview Version)
+
+“Latency is the time it takes for a request to travel from the client to the server and back. It accumulates across multiple stages, including DNS resolution, network hops, TLS handshakes, request routing, server processing, and database access. In most systems, the largest contributors to latency are network distance and backend processing. System design focuses on reducing latency by minimizing round trips, caching responses, placing servers closer to users, and reducing server load.”

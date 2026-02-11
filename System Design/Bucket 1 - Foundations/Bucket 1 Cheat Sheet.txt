@@ -1,0 +1,139 @@
+Bucket 1 - One-Page Cheat Sheet (Interview + Revision)
+
+1. Client-Server Architecture
+
+  - Client handles UI and user interaction
+  - Server handles business logic, security, shared data
+  - Centralization enables trust, consistency, and scalability
+
+  Interview line:
+  | Client sends requests; server processes and responds,
+  | acting as the trusted source of truth.
+
+----------------------------------------------------------------
+
+2. IP Addresses and Ports
+
+  - IP -> identifies which machine
+  - Port -> identifies which service on that machine
+  - One machine can run many services via different ports
+
+  Interview line:
+  | IP selects the machine; port selects the service on that machine.
+
+----------------------------------------------------------------
+
+3. DNS (Domain Name System)
+
+  - Converts domain names -> IP addresses
+  - Lookup order:
+    1) Browser cache
+    2) OS cache
+    3) Local network
+    4) ISP / recursive resolver
+    5) Root DNS
+    6) TLD DNS (Top-Level Domain)
+    7) Authoritative DNS (source of truth)
+  - Important: DNS returns IP only, never ports
+
+  Interview line:
+  | DNS is a distributed, cached system that maps domain names to IP addresses.
+
+----------------------------------------------------------------
+
+4. HTTP vs HTTPS (+ TLS)
+
+  - HTTP -> plaintext, no identity verification
+  - HTTPS -> HTTP over TLS
+  - TLS provides:
+    - Encryption
+    - Integrity
+    - Server authentication (via certificates)
+  - TLS happens before HTTP data is sent
+
+  Interview line:
+  | HTTPS uses TLS to verify server identity and encrypt traffic
+  | before any HTTP request is exchanged.
+
+----------------------------------------------------------------
+
+5. Forward Proxy vs Reverse Proxy
+
+  - Forward Proxy:
+    - Client-side
+    - Acts on behalf of client
+    - Hides client identity
+    - Holds access rules, logs, cache
+
+  - Reverse Proxy:
+    - Server-side
+    - Single public entry point
+    - Hides backend servers
+    - Handles TLS, routing, load balancing, security
+
+  - Application Servers:
+    - Hold business logic and data
+    - Talk to databases
+    - Do not manage traffic concerns
+
+  Interview line:
+  | Forward proxies represent clients, reverse proxies represent servers,
+  | and application servers own business logic and data.
+
+----------------------------------------------------------------
+
+6. Latency
+
+  - Latency = total time for request -> response
+  - Accumulates across:
+    - DNS
+    - Network hops
+    - TLS handshake
+    - Reverse proxy routing
+    - App server processing
+    - Database queries
+  - Lower latency -> better UX
+  - Reduced by:
+    - Fewer hops
+    - Caching
+    - Geo-distribution
+    - Connection reuse
+
+  Interview line:
+  | Latency is the sum of delays across the entire request path,
+  | and good system design minimizes it at each stage.
+
+================================================================
+
+Bucket 1 - Diagram-Only Summary (Mental Map)
+
+Full End-to-End Request Flow (Text Diagram)
+
+User Action (Browser / App)
+    |
+    | 1) Domain name
+    v
+DNS Resolution
+    |
+    | 2) IP address returned
+    v
+Reverse Proxy (IP : 443)
+    |
+    | 3) TLS handshake (certificate verification)
+    |
+    | 4) Encrypted HTTP request
+    |
+    | 5) Routing / load balancing
+    v
+Application Server
+    |
+    | 6) Business logic
+    | 7) Database access
+    v
+Response
+    |
+    v
+Reverse Proxy
+    |
+    v
+Client (UI update)

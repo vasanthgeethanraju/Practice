@@ -1,0 +1,6 @@
+“In a typical client–server system, a user action in the browser or app results in a request being sent to a server using a domain name. 
+That domain is first resolved to an IP address through DNS, which is a distributed and cached system. 
+The request then travels across the internet through multiple network hops and reaches the server-side reverse proxy over HTTPS. 
+At the reverse proxy, TLS terminates, the server’s identity is verified using certificates, and the encrypted request is routed or load-balanced 
+to the appropriate application server. The application server executes business logic and interacts with the database as needed, 
+and the response then flows back through the reverse proxy to the client over the same connection, without repeating DNS resolution.”

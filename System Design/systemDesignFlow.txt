@@ -1,0 +1,100 @@
+Correct High-Level Order (Canonical)
+1️⃣ Foundations (How requests move)
+
+This answers:
+
+How does a request even reach my system?
+
+Where does latency come from before my code runs?
+
+Includes:
+  - Client–Server Architecture
+  - IP Address
+  - DNS
+  - HTTP / HTTPS
+  - Proxy / Reverse Proxy
+  - Latency
+
+📌 This is about networking + request flow, not scaling yet.
+
+2️⃣ API Layer (How clients talk to backend)
+This answers:
+What does the client actually call?
+
+What does the client actually call?
+
+How do we design safe, predictable APIs?
+
+Includes:
+  - APIs
+  - REST API
+  - GraphQL
+  - Idempotency
+
+📌 This is about contracts, not infrastructure.
+
+3️⃣ Data Layer (Where data lives)
+
+This answers:
+
+Where does data live?
+
+How is it modeled and accessed?
+
+Includes:
+  - Databases
+  - SQL vs NoSQL
+  - Indexing
+  - Replication
+  - Sharding
+  - Vertical Partitioning
+  - Denormalization
+  - Blob Storage
+
+📌 This is where most system design depth lives.
+
+4️⃣ Performance & Scale
+
+This answers:
+
+What happens when traffic grows?
+
+What breaks first?
+
+Includes:
+  - Vertical Scaling
+  - Horizontal Scaling
+  - Load Balancers
+  - Caching
+  - CDN
+
+📌 Scaling comes AFTER you understand data and APIs.
+
+5️⃣ Distributed Systems & Reliability
+
+This answers:
+
+What happens when things fail?
+
+How do we survive spikes and partial outages?
+
+Includes:
+  - CAP Theorem
+  - Message Queues
+  - Rate Limiting
+
+📌 This is about failure, not features.
+
+6️⃣ System Architecture Patterns
+
+This answers:
+
+How do we structure large systems long-term?
+
+Includes:
+  - WebSockets
+  - Webhooks
+  - Microservices
+  - API Gateways
+
+📌 These are architectural choices built on everything above.
