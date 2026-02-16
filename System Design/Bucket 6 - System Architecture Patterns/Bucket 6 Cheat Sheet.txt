@@ -1,0 +1,213 @@
+Bucket 6 - System Architecture Patterns (One-Page Cheat Sheet: Interview + Revision)
+
+1. WebSockets
+What are WebSockets?
+
+  - Persistent, full-duplex communication channel between client and server over a single TCP connection
+  - Starts as HTTP -> upgraded to WebSocket (WSS)
+  - Connection remains open for realtime messaging
+
+Why Used
+
+  - Eliminate polling
+  - Low latency updates
+  - Server push capability
+  - Bidirectional communication
+
+Typical Flow
+
+  - Client <-> WebSocket Gateway <-> Event System <-> Services
+
+Key Concepts
+
+  - Persistent connection
+  - Heartbeat (ping/pong) for liveness
+  - Reconnection handling
+  - Fanout (one event -> many clients)
+  - Backpressure handling for slow consumers
+
+Reliability Model
+
+  - WebSocket = delivery channel
+  - DB / Message Queue = durability guarantee
+
+Real Systems
+
+  - WhatsApp / Slack -> messaging
+  - Bloomberg -> live market feeds
+  - Uber -> live location tracking
+  - Google Docs -> collaboration
+
+Tradeoffs
+
+  - Stateful connections
+  - Memory per connection
+  - Scaling requires distributed pub/sub
+
+  Interview line:
+  | WebSockets enable realtime bidirectional communication by maintaining persistent connections, allowing servers to push
+  | updates instantly while event systems provide durability and scalability.
+
+2. Webhooks
+What are Webhooks?
+
+  - Event-driven HTTP callbacks between services
+  - One system automatically notifies another when an event occurs
+
+Position: Provider Service -> HTTP POST -> Consumer Endpoint
+
+Why Used
+
+  - Avoid polling
+  - Asynchronous integrations
+  - Loose coupling between systems
+
+Common Use Cases
+
+  - Stripe payment confirmation
+  - GitHub CI/CD triggers
+  - Shopify order events
+  - Monitoring alerts
+
+Reliability Concerns
+
+  - Retries on failure
+  - Duplicate delivery
+  - Receiver downtime
+
+Mitigations
+
+  - Idempotency keys
+  - Signature verification
+  - Retry policies
+  - Dead letter queues
+
+Key Difference
+
+  - WebSocket -> persistent client communication
+  - Webhook -> short-lived server notification
+
+  Interview line:
+  | Webhooks enable event-driven system integration by pushing HTTP notifications when events occur, eliminating inefficient
+  | polling between services.
+
+3. Microservices (Architecture Pattern)
+What are Microservices?
+
+  - Application decomposed into independent services aligned with business domains
+  - Each service deployable and scalable independently
+
+Topology: Client -> API Gateway -> Services -> Individual Databases
+
+Core Principles
+
+  - Single responsibility per service
+  - Independent deployments
+  - Service-owned data
+  - Network-based communication
+
+Communication Models
+
+Synchronous:
+  - REST / gRPC calls
+
+Asynchronous:
+  - Message queues / event streaming
+
+Scaling Model
+
+  - Horizontal scaling per service
+  - Different replica counts per workload
+  - Managed by Kubernetes
+
+Example
+
+  - Order service -> 10 pods
+  - Payment service -> 3 pods
+
+Benefits
+
+  - Independent scaling
+  - Fault isolation
+  - Faster deployments
+  - Team autonomy
+
+Challenges
+
+  - Network latency
+  - Distributed debugging
+  - Data consistency
+  - Observability complexity
+
+Industry Reality
+
+  - Monolith -> Containerized -> Hybrid -> Microservices
+
+  Interview line:
+  | Microservices decompose applications into independently deployable services that enable targeted scaling and fault
+  | isolation while introducing distributed system complexity.
+
+4. API Gateway
+What is an API Gateway?
+
+  - Single entry point for clients into a microservices system
+  - Handles cross-cutting concerns centrally
+
+Position: Client -> Load Balancer -> API Gateway -> Microservices
+
+Responsibilities
+
+  - Authentication and authorization (JWT/OAuth)
+  - Rate limiting
+  - Request routing
+  - API versioning
+  - Logging and observability
+  - Request aggregation
+  - WebSocket routing
+  - Webhook ingestion
+
+Scaling
+
+  - Gateway itself horizontally scaled
+  - External LB distributes traffic across gateway pods
+
+Internal Routing
+
+  - Gateway -> Kubernetes Service -> Healthy service pods
+
+Why Needed
+
+Without gateway:
+  - Client must know many services
+  - Security duplicated
+  - Tight coupling
+
+With gateway:
+  - Backend abstraction
+  - Centralized control
+
+Gateway vs Load Balancer
+
+Load Balancer:
+  - Network traffic distribution
+
+API Gateway:
+  - Application-aware routing
+
+Tradeoffs
+
+  - Extra hop latency
+  - Must avoid becoming bottleneck
+
+  Interview line:
+  | An API gateway centralizes routing, security, and traffic control for microservices, simplifying clients while enabling
+  | independent service evolution and scalable backend architecture.
+
+Bucket 6 - Mental Summary
+
+  - Realtime needs -> WebSockets
+  - External event integrations -> Webhooks
+  - System decomposition -> Microservices
+  - Client complexity increases -> API Gateway centralizes control
+  - Kubernetes scales services horizontally
+  - Event systems and gateways power modern distributed apps

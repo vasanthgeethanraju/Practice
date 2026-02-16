@@ -1,0 +1,38 @@
+3.1 Databases (Interview version)
+
+"A database is a centralized, durable system that stores application data so it can be safely shared by many users. It persists data across crashes and restarts, manages concurrent access to prevent corruption, and optimizes retrieval using mechanisms like indexes to maintain performance at scale."
+
+3.2 SQL vs NoSQL (Interview version)
+
+"SQL and NoSQL differ mainly in the guarantees and tradeoffs they prioritize. SQL databases enforce a strict schema and strong consistency, making them ideal for critical data like user accounts, payments, and access control where correctness cannot be compromised. NoSQL databases offer flexible schemas and easier horizontal scaling, making them well-suited for high-volume, rapidly changing, or distributed data like feeds, messages, activity logs, and recommendations where eventual consistency is acceptable. In practice, most large systems use a hybrid approach - SQL as the source of truth for sensitive data, and NoSQL for scalable, high-throughput workloads."
+
+"SQL is ACID (Atomicity, Consistency, Isolation, Durability)"
+"NoSQL is BASE (Basically Available Soft state Eventual consistency)"
+
+3.3 Indexing (Interview version)
+
+"Indexing is a way to speed up reads by creating a structured data layer—usually a B-tree—on specific columns. Instead of scanning the entire table, the database uses the index to quickly locate matching rows. We typically index columns that are frequently used in WHERE, JOIN, or ORDER BY clauses. The tradeoff is that indexes slow down writes and consume additional storage and memory, so we only create them based on query patterns, not blindly.
+
+A composite index is built on multiple columns, like (user_id, created_at), and is useful when queries filter on more than one column. Composite indexes follow the leftmost prefix rule, meaning the first column in the index must be part of the query for it to be used efficiently. Column order matters, and once a range condition is applied, columns after it may not be fully optimized."
+
+"When you create an index on Students(email), the database creates a separate internal index structure (usually a B-tree) stored on disk within the same database server. It is not a new table or database, but an index object attached to the Students table. It contains one entry per row, mapping email values to row locations, and is physically stored alongside the table data in the same database instance."
+
+3.4 Replication (Interview version)
+
+"Replication is the process of maintaining multiple copies of the same database data across different machines to improve availability and read scalability. In a typical primary–replica setup, writes go to the primary and are propagated to replicas through replication logs. Replication can be synchronous (full synchronous/semi-synchronous), where the primary waits for replica acknowledgments for stronger durability, or asynchronous, where it responds immediately for lower latency but risks replication lag and stale reads. The main tradeoff is between latency, availability, and consistency—stronger durability guarantees increase write latency, while asynchronous replication improves performance but may lead to eventual consistency and potential lost writes during failures."
+
+3.5 Horizontal Partitioning - Sharding (Interview version)
+
+“Sharding is horizontal partitioning of a database to scale writes and storage by splitting data across multiple machines based on a shard key, such as user_id. Common strategies include range-based sharding, which is simple but can cause hotspots; hash-based sharding, which distributes load evenly; and consistent hashing, which minimizes data movement when adding or removing shards. In large-scale systems, geo-sharding is often combined with hash-based sharding to reduce latency and distribute traffic globally. A shard router determines the correct shard using either metadata (for range) or a hash function, and typically performs read-write splitting by sending writes to the primary and reads to replicas. Each shard is usually replicated for high availability, and caching is used to handle hot keys or trending data that could otherwise overload a single shard.”
+
+3.6 Vertical Partitioning (Interview version)
+
+“Vertical partitioning is a schema optimization technique where a table is split by columns instead of rows, separating frequently accessed ‘hot’ columns from rarely accessed or large ‘cold’ columns. This reduces row size, improves cache efficiency, and minimizes disk I/O for common queries. It’s especially useful when wide tables contain large fields like blobs, JSON, or text that are not needed in most requests. While it may introduce additional joins for full-detail queries, it significantly improves performance for high-frequency lightweight reads.”
+
+3.7 Denormalization (Interview version)
+
+“Denormalization is the practice of intentionally duplicating data across tables or documents to optimize read performance, especially in high-read or distributed systems. By storing frequently accessed related data together - such as embedding a user’s display name inside posts - systems can avoid expensive joins and cross-shard queries, significantly improving latency and scalability. However, this introduces write amplification and consistency challenges, since updates to the source of truth must be propagated to all duplicated copies. In large-scale systems, this is often handled asynchronously using event-driven updates or background jobs, accepting eventual consistency for non-critical data. Techniques like read-after-write routing or version-based consistency can ensure users see their own updates immediately, but global consistency across all denormalized copies may converge over time.”
+
+3.8 Blob Storage (Interview version)
+
+“Blob storage refers to storing large binary objects such as images, videos, documents, or media files in dedicated object storage systems like S3, Google Cloud Storage, Azure Blob Storage, Internal object storage, CDN-backed storage rather than inside the relational database. The database stores only metadata and a reference, such as an object key or URL, while the client fetches the actual file directly from object storage or a CDN. This keeps database rows small, improves query performance, reduces replication and backup overhead, and allows file storage to scale independently from the core data layer.”

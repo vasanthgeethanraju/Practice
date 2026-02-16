@@ -1,0 +1,243 @@
+Bucket 5 - Distributed Systems & Reliability (One-Page Cheat Sheet: Interview + Revision)
+
+1. CAP Theorem
+What is CAP Theorem?
+
+  - In a distributed system, during a network partition, a system can guarantee only two of the three:
+    . Consistency (C) - all nodes return the same latest data
+    . Availability (A) - every request receives a response
+    . Partition Tolerance (P) - system continues despite network failures
+
+Key Reality
+
+  - Network partitions are unavoidable
+  - Systems must choose between Consistency or Availability
+
+CP Systems
+
+  - Prefer correctness over responsiveness
+  - May reject requests during partitions
+  - Examples:
+    . Banking systems
+    . Strong transactional databases
+
+AP Systems
+
+  - Prefer availability
+  - Allow temporary stale data
+  - Achieve eventual consistency
+  - Examples:
+    . Social feeds
+    . Netflix recommendations
+    . Shopping carts
+
+Techniques Supporting AP
+
+  - Replication
+  - Event propagation
+  - Conflict resolution
+  - Last-write-wins / merge logic
+
+  Interview line:
+  | CAP theorem states that during network partitions, distributed systems must trade off between consistency and
+  | availability, and most large-scale systems favor availability with eventual consistency.
+
+2. Message Queues
+What are Message Queues?
+
+  - Infrastructure that enables asynchronous communication between services
+
+Position: Producer -> Queue -> Worker -> Database
+
+Why Used
+
+  - Decouple services
+  - Handle traffic spikes
+  - Background processing
+  - Improve reliability
+
+Delivery Guarantees
+
+  - At-most-once
+  - At-least-once (most common)
+  - Effectively exactly-once (via idempotency)
+
+Core Concepts
+
+  - Producers publish events
+  - Workers consume messages
+  - ACK removes message
+  - Retries on failure
+  - Dead Letter Queue (DLQ)
+
+Problems Introduced
+
+  - Duplicate processing
+  - Eventual consistency
+  - Ordering challenges
+
+Mitigations
+
+  - Idempotency keys
+  - Transactional writes
+  - Backpressure
+
+Common Systems
+
+  - Kafka
+  - RabbitMQ
+  - AWS SQS
+  - Google Pub/Sub
+
+  Interview line:
+  | Message queues enable asynchronous, reliable processing by decoupling producers and consumers while absorbing traffic
+  | spikes and supporting retry-based fault tolerance.
+
+3. Containers, Kubernetes, Throughput & Throttling
+Containers (Docker)
+
+  - Package:
+    . Application code
+    . Runtime
+    . Dependencies
+  - Provide consistent deployment across environments
+
+Kubernetes
+
+  - Container orchestration platform that manages:
+    . Scheduling
+    . Scaling (horizontal)
+    . Health checks
+    . Self-healing
+    . Resource allocation
+
+Scaling
+
+  - More traffic -> more pods created
+
+Throughput
+
+  - Amount of work processed per unit time
+  - Examples:
+    . Requests/sec
+    . Messages/sec
+    . Trades/sec
+
+CPU Throttling
+
+  - Occurs when container exceeds CPU limit
+  - Effects:
+    . Slower processing
+    . Queue backlog growth
+    . Increased latency
+
+Why Important
+
+  - Architecture may be correct but runtime limits cause failures
+
+  Interview line:
+  | Containers provide portable execution, Kubernetes enables horizontal scaling, and throughput is constrained by CPU and
+  | resource limits, where throttling protects infrastructure but can reduce processing speed under heavy load.
+
+4. Monolith vs Microservices
+Monolithic Architecture
+
+  - Single deployable backend containing all business logic
+  - Topology: LB -> identical app servers -> DB
+
+Advantages
+
+  - Simple development
+  - Easier debugging
+  - Fast internal calls
+
+Limitations
+
+  - Hard to scale selectively
+  - Risky deployments
+  - Tight coupling
+
+Microservices Architecture
+
+  - Backend split into independent services
+  - Topology: API -> Payment -> Recommendation -> Notification
+
+Advantages
+
+  - Independent scaling
+  - Fault isolation
+  - Team autonomy
+  - Safer deployments
+
+Tradeoffs
+
+  - Network complexity
+  - Distributed coordination
+  - Observability challenges
+
+Industry Reality
+
+  - Most systems evolve:
+    . Monolith -> Containerized Monolith -> Hybrid -> Microservices
+
+  Interview line:
+  | Monoliths scale by replicating entire applications, while microservices decompose systems into independently deployable
+  | services enabling targeted scaling and operational flexibility.
+
+5. Rate Limiting
+What is Rate Limiting?
+
+  - Restricts number of requests allowed within a time window to protect system stability and ensure fair usage
+
+Why Needed
+
+  - Prevents:
+    . CPU saturation
+    . Thread exhaustion
+    . DB overload
+    . Queue backlog explosions
+    . Abuse/bots
+
+Common Algorithms
+
+Token Bucket:
+  - Allows bursts, controls average rate (most common)
+
+Leaky Bucket:
+  - Smooth steady processing
+
+Fixed Window:
+  - Simple counters
+
+Sliding Window:
+  - Precise fairness
+
+Distributed Enforcement
+
+  - Redis shared counters
+  - API Gateway enforcement
+  - Hybrid local + global limits
+
+Placement: Client -> Gateway/CDN -> Services -> DB
+
+Response: HTTP 429 Too Many Requests
+
+  Interview line:
+  | Rate limiting protects system reliability by controlling request rates using algorithms like token bucket and distributed
+  | coordination mechanisms to prevent overload cascades across services and infrastructure.
+
+Bucket 5 - Mental Summary
+
+  - CAP -> failures inevitable
+              ↓
+           Eventual consistency
+              ↓
+           Queues ensure reliable async work
+              ↓
+           Containers and Kubernetes run and scale services
+              ↓
+           Throughput limited by CPU/resources
+              ↓
+           Microservices enable targeted scaling
+              ↓
+           Rate limiting protects real capacity

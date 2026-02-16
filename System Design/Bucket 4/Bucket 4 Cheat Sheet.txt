@@ -1,0 +1,203 @@
+Bucket 4 - Performance & Scale (One-Page Cheat Sheet: Interview + Revision)
+
+1. Vertical Scaling (Scale Up)
+What is Vertical Scaling?
+
+  - Increasing resources of a single machine
+    . More CPU
+    . More RAM
+    . Faster SSD
+    . Better network
+
+Example: 8GB RAM -> 64GB RAM server
+
+Advantages
+  - Simple to implement
+  - No architectural changes
+  - Strong consistency maintained
+  - No distributed complexity
+
+Limitations
+  - Hardware limits reached eventually
+  - Expensive at higher tiers
+  - Single point of failure
+  - Downtime during upgrades
+
+When Used
+  - Early-stage systems
+  - Databases needing strong consistency
+  - Low-to-medium traffic workloads
+
+  Interview line:
+  | Vertical scaling improves performance by increasing machine capacity, but it is limited by hardware constraints and does
+  | not improve fault tolerance.
+
+2. Horizontal Scaling (Scale Out)
+What is Horizontal Scaling?
+
+  - Adding multiple machines running identical services
+  - 1 server -> N servers
+  - Requests handled concurrently across instances
+
+Requires
+  - Stateless application servers
+  - Shared database/storage
+  - Load balancing
+
+Advantages
+  - Handles massive traffic
+  - Fault tolerant
+  - Near unlimited scalability
+  - Zero-downtime scaling
+
+Challenges
+  - Distributed coordination
+  - Session management
+  - Data consistency
+
+Stateless Principle
+  - Application servers should not store user state locally
+  - Use:
+    . DB
+    . Redis
+    . Tokens (JWT)
+
+  Interview line:
+  | Horizontal scaling increases capacity by distributing traffic across multiple stateless service instances, improving
+  | scalability and availability.
+
+3. Load Balancers
+What is a Load Balancer?
+
+  - A reverse proxy that distributes incoming traffic across backend servers
+
+Position: Client -> Load Balancer -> App Servers
+
+Responsibilities
+  - Traffic distribution
+  - Health checks
+  - Failover handling
+  - TLS termination
+  - Protection against overload
+
+Common Algorithms
+  - Round Robin
+  - Least Connections
+  - Weighted Routing
+  - Hash-based (sticky sessions)
+
+L4 vs L7
+
+L4:
+  - TCP level
+  - Fast
+  - Less intelligent
+
+L7:
+  - HTTP aware
+  - Route by path/header
+  - More flexible
+
+Scaling Load Balancers
+  - Multiple LBs deployed
+  - DNS distributes traffic among them
+  - Active-active setups common
+
+  Interview line:
+  | Load balancers distribute requests across multiple servers to improve utilization, reliability, and scalability while
+  | preventing individual instances from overload.
+
+4. Caching
+What is Caching?
+  - Storing frequently accessed data in fast memory to avoid repeated database queries
+
+Typical placement: App -> Cache (Redis) -> Database
+
+Cache-Aside Pattern (Most Common)
+  - Check cache
+  - Miss -> query DB
+  - Store result in cache (TTL)
+
+Types of Cache
+  Entity Cache:
+    - user:123
+    - product:456
+    - Easy invalidation
+
+  Query Cache:
+    - search results
+    - Harder invalidation
+
+  Aggregation Cache:
+    - dashboards
+    - computed summaries
+
+  Benefits
+    - Lower latency
+    - Reduced DB load
+    - Higher throughput
+
+Problems Introduced
+  - Stale data
+  - Cache stampede
+  - Hot keys
+  - Cache pollution
+
+Mitigations
+  - TTL expiration
+  - Delete-on-write invalidation
+  - Request locking
+  - Randomized TTL
+  - Background refresh
+
+Common Systems
+  - Redis
+  - Memcached
+
+  Interview line:
+  | Caching improves read performance by serving frequently accessed data from memory, trading strict consistency for
+  | significantly reduced latency and database load.
+
+5. CDN (Content Delivery Network)
+What is a CDN?
+  - Globally distributed edge servers that cache HTTP responses closer to users
+
+Position: Client -> CDN -> Load Balancer -> Backend
+
+What CDNs Cache
+  - Images
+  - JS/CSS
+  - Videos
+  - Public API responses
+  - Page shells
+  - (Not personalized user data)
+
+How It Works
+
+Cache Hit:
+  - Served directly from edge
+
+Cache Miss:
+  - Forward to origin -> cache response
+
+Advantages
+  - Reduced latency (geographic proximity)
+  - Offloads backend traffic
+  - DDoS absorption
+  - Bandwidth savings
+
+Tradeoffs
+  - Stale edge content
+  - Cache invalidation complexity
+  - Limited personalization support
+
+Real-World CDNs
+  - Cloudflare
+  - AWS CloudFront
+  - Akamai
+  - Fastly
+  - Google Cloud CDN
+
+  Interview line:
+  | A CDN caches content at geographically distributed edge locations, reducing latency and preventing requests from reaching
+  | origin infrastructure.

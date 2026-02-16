@@ -1,0 +1,11 @@
+When a client (web/mobile) makes an API call - typically a REST request like GET /users/:id or POST /orders - the domain is first resolved via DNS into an IP, 
+and the HTTPS request travels across internet hops to a reverse proxy or load balancer. The reverse proxy handles TLS termination, routing, and basic protections, 
+then forwards the request to an application server. In the API layer, the router maps the REST endpoint to a controller/handler that validates headers, auth, and payload,
+then invokes the service layer where business logic runs. If the request needs data, the service calls a data access layer that queries the database layer: 
+SQL databases are used when strong consistency and relational modeling matter (ACID - payments, orders), while NoSQL databases are used when flexible schema, 
+high throughput, or large-scale distributed access is needed (feeds, logs), often accepting eventual consistency. For scale, data may be horizontally partitioned 
+using sharding, where a shard router uses a shard key (range/hash/consistent hashing) to route reads/writes to the correct shard; each shard typically has a primary 
+for writes and replicas for reads via WAL/binlog replication. For performance, schemas may use indexing (B-trees) to speed lookups, vertical partitioning to separate 
+hot vs cold columns, and denormalization to avoid expensive joins (especially across shards), trading more complex writes for faster reads. Large files like 
+images/videos are stored in blob/object storage with only metadata or URLs stored in the DB, and the client fetches media directly from storage/CDN. Finally, 
+the response flows back up through the service and API layers, through the proxy, and returns to the client over the same HTTPS connection.

@@ -1,0 +1,126 @@
+Bucket 3 – Data Layer (One-Page Cheat Sheet: Interview + Revision)
+1. What is a Database?
+
+  - Centralized durable storage system
+  - Supports concurrency (multiple users)
+  - Ensures:
+    . Persistence (survives crashes)
+    . Controlled access
+    . Structured querying
+  - Prevents:
+    . Data loss (memory is volatile)
+    . Inconsistent shared state
+
+  Interview line:
+  | A database is a durable and concurrent storage system that allows multiple clients to safely read and write shared data.
+
+2. SQL vs NoSQL
+SQL (Relational Databases)
+
+  - Tables, rows, columns
+  - Fixed schema
+  - ACID properties: Atomicity, Consistency, Isolation, Durability
+  - Strong consistency
+  - Best for: Payments, Orders, User accounts, Source of truth data
+
+NoSQL
+
+  - Document / key-value / wide-column / graph
+  - Flexible schema
+  - BASE model: Basically Available Soft state Eventual consistency
+  - Horizontally scalable
+  - Best for: Feeds, Messages, Logs, Recommendations
+
+Real-world: Most systems use both (hybrid architecture)
+
+  Interview line:
+  | SQL is preferred for strongly consistent transactional data, while NoSQL is used for scalable, flexible workloads where
+  | eventual consistency is acceptable.
+
+3. Indexing
+What is Indexing?
+
+  - A performance optimization structure
+  - Usually implemented as a B-tree
+  - Stores: Indexed column value, Pointer to row
+  - Speeds up reads
+  - Slows down writes
+  - Uses additional storage & memory
+
+Why Index?
+
+  - Avoid full table scans
+  - Improve WHERE / JOIN / ORDER BY performance
+  - Reduce database execution time
+
+Tradeoffs
+
+  - Faster reads
+  - Slower inserts/updates/deletes
+  - Increased storage
+  - Write amplification
+
+Selectivity
+
+  - High selectivity = good index candidate (email, user_id)
+  - Low selectivity = often useless (boolean fields)
+
+Composite Index
+
+  - Index on multiple columns
+  - Follows leftmost prefix rule
+  - Column order matters
+
+Example: INDEX(user_id, created_at)
+
+
+Efficient:
+  - WHERE user_id = ?
+  - WHERE user_id = ? AND created_at > ?
+
+Not efficient:
+  - WHERE created_at = ? (alone)
+
+Range conditions reduce usability of later columns.
+
+  Interview line:
+  | Indexes speed up reads by trading off write performance and storage. Composite indexes allow multi-column filtering but 
+  | must follow the leftmost prefix rule.
+
+4. Replication
+What is Replication?
+
+  - Multiple copies of same data across machines
+  - Improves:
+      . Availability
+      . Read scalability
+
+Primary–Replica Model
+  - Writes → Primary
+  - Reads → Replicas
+  - Changes propagated via logs (WAL/binlog)
+
+Replication Types
+
+Synchronous:
+  - Wait for replica ACK
+  - Stronger durability
+  - Higher write latency
+
+Asynchronous:
+  - Return immediately
+  - Replicas update later
+  - Risk of replication lag
+
+Replication Lag
+  - Replica not yet updated
+  - Causes stale reads
+  - Leads to eventual consistency
+
+Failure Scenario
+
+  - If primary crashes before replica receives write (async): Write may be lost
+
+  Interview line:
+  | Replication maintains multiple copies of data to improve availability and scalability. Asynchronous replication improves
+  | performance but introduces replication lag and potential consistency tradeoffs.

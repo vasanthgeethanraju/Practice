@@ -46,7 +46,7 @@ Includes:
   - SQL vs NoSQL
   - Indexing
   - Replication
-  - Sharding
+  - Horizontal Partitioning (Sharding)
   - Vertical Partitioning
   - Denormalization
   - Blob Storage
@@ -62,8 +62,7 @@ What happens when traffic grows?
 What breaks first?
 
 Includes:
-  - Vertical Scaling
-  - Horizontal Scaling
+  - Scaling (Vertical vs Horizontal Scaling)
   - Load Balancers
   - Caching
   - CDN
@@ -81,6 +80,8 @@ How do we survive spikes and partial outages?
 Includes:
   - CAP Theorem
   - Message Queues
+  - Containers, Kubernetes, Throughput & Throttling
+  - Monolith vs Microservices
   - Rate Limiting
 
 📌 This is about failure, not features.
