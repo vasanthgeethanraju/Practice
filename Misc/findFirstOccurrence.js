@@ -16,18 +16,18 @@ function findFirstOccurrence(p, s) {
   if (s.length > p.length) return [-1, -1];
 
   for (let i = 0; i <= p.length - s.length; i++) {
-      let match = true;
+    let match = true;
 
-      for (let j = 0; j < s.length; j++) {
-          if (p[i + j] !== s[j]) {
-              match = false;
-              break;
-          }
+    for (let j = 0; j < s.length; j++) {
+      if (p[i + j] !== s[j]) {
+        match = false;
+        break;
       }
+    }
 
-      if (match) {
-          return [i, i + s.length - 1];
-      }
+    if (match) {
+      return [i, i + s.length - 1];
+    }
   }
 
   return [-1, -1];

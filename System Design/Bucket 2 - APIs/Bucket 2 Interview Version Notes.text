@@ -1,0 +1,59 @@
+2.1 APIs (Interview Version)
+
+“An API is an interface and contract between a client and a server that defines how the client can request data or trigger actions.
+The client makes a request by calling a specific endpoint using an HTTP method, along with headers and sometimes a request body. 
+Each endpoint represents a specific resource or service, such as users, orders, or locations.
+
+Based on the method, endpoint, headers, and any parameters provided, the server routes the request to the appropriate backend service, 
+performs the required logic, and returns a response with a status code and structured data, typically in JSON format.”
+
+2.2 REST APIs (Interview Version)
+
+“REST stands for Representational State Transfer and is a design style for building APIs over HTTP. 
+In REST, systems are modeled around resources such as users, orders, or locations, each identified by a URL. 
+Clients interact with these resources using standard HTTP methods like GET, POST, PUT, PATCH, and DELETE, which map to CRUD operations, 
+and receive structured responses, typically in JSON.”
+
+“REST APIs are stateless, meaning the server does not store client session state between requests. 
+Each request includes all required information, such as authentication tokens. An endpoint is defined by the combination of an HTTP method and a URL, 
+and it acts as the entry point to backend logic, routing the request to the appropriate service, which performs business logic 
+and returns a response with an HTTP status code.”
+
+2.3 HTTP Methods (Interview Version)
+
+“In REST APIs, the HTTP method defines the action performed on a resource, while the URL identifies the resource itself. 
+GET is used to retrieve data and does not modify server state. POST is used to create new resources and is not idempotent. 
+PUT is used to replace an entire resource and is idempotent, while PATCH is used to partially update a resource. 
+DELETE is used to remove a resource and is also idempotent.
+
+These methods follow consistent semantics across REST APIs, which makes systems predictable, scalable, and easier to reason about.”
+
+2.4 HTTP Codes:
+
++-------------+----------------------+------------------------------------------------------+---------------------------------------------+
+| Status Code | Name                 | What it Means (Interview Friendly)                   | Common When Used                            |
++-------------+----------------------+------------------------------------------------------+---------------------------------------------+
+| 200         | OK                   | Request succeeded and response contains data.        | Successful GET, PUT, POST, PATCH, DELETE          |
+| 201         | Created              | New resource was created successfully.               | Successful POST create                      |
+| 202         | Accepted             | Request accepted; processing will happen async.      | Queued jobs, background processing          |
+| 204         | No Content           | Request succeeded, but nothing to return in body.    | Successful DELETE or update with no payload |
+| 301         | Moved Permanently    | Resource URL has permanently changed.                | URL/domain migration                        |
+| 304         | Not Modified         | Client cache is still valid; no new content needed.  | Conditional GET with ETag/Last-Modified     |
+| 400         | Bad Request          | Request is malformed or invalid.                     | Missing fields, invalid JSON/params         |
+| 401         | Unauthorized         | Authentication is required or token is invalid.      | Missing/expired JWT or API key              |
+| 403         | Forbidden            | Authenticated, but not allowed to access resource.   | Role/permission denied                      |
+| 404         | Not Found            | Requested resource does not exist.                   | Wrong URL or missing entity ID              |
+| 409         | Conflict             | Request conflicts with current resource state.       | Duplicate create, version conflict          |
+| 422         | Unprocessable Entity | Syntax is valid, but business validation failed.     | Email format/business-rule validation fail  |
+| 429         | Too Many Requests    | Client exceeded allowed request rate.                | Rate limiting/throttling                    |
+| 500         | Internal Server Error| Server failed unexpectedly while handling request.   | Unhandled exceptions                        |
+| 502         | Bad Gateway          | Upstream service returned invalid response.          | Reverse proxy/API gateway upstream issues   |
+| 503         | Service Unavailable  | Service is temporarily unavailable.                  | Maintenance, overload, dependency outage    |
+| 504         | Gateway Timeout      | Upstream service took too long to respond.           | Timeout between gateway and backend         |
++-------------+----------------------+------------------------------------------------------+---------------------------------------------+
+
+2.5 Idempotency (Interview Version)
+
+“Idempotency means that making the same request multiple times results in the same server state. 
+In REST, GET, PUT, and DELETE are idempotent, while POST is not. 
+Idempotency is important for handling retries and failures safely in distributed systems.”

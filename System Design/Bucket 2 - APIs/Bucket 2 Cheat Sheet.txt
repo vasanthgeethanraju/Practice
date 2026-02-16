@@ -1,0 +1,159 @@
+Bucket 2 - API Layer (One-Page Cheat Sheet: Interview + Revision)
+
+1. What is an API?
+
+  - API = Application Programming Interface
+  - Acts as a contract between client and server
+  - Defines:
+    - What requests are allowed
+    - How requests are structured
+    - What responses look like
+  - Enables separation between frontend and backend
+
+  Interview line:
+  | An API is a contract that defines how clients can request data
+  | or trigger actions on a server in a structured way.
+
+----------------------------------------------------------------
+
+2. REST and RESTful APIs
+
+  - REST = Representational State Transfer (architectural style)
+  - RESTful API = API that follows REST principles
+  - Core idea:
+    - Everything is a resource
+    - Resources are identified by URLs
+    - Actions are expressed using HTTP methods
+  - REST is a style, not a protocol or framework
+
+  Interview line:
+  | REST is a resource-oriented API design style that uses standard
+  | HTTP methods to operate on resources identified by URLs.
+
+----------------------------------------------------------------
+
+3. Resources and Endpoints
+
+  - Resource = noun-like entity (users, orders, locations)
+  - URL identifies the resource, not the action
+  - Endpoint = HTTP method + URL
+  - Endpoint is the entry point to backend logic, not directly to DB
+  - Examples:
+    - GET /users/42
+    - POST /orders
+    - PATCH /users/42
+
+  Interview line:
+  | An endpoint is defined by the combination of an HTTP method
+  | and a URL, and serves as the entry point to backend logic.
+
+----------------------------------------------------------------
+
+4. HTTP Methods (CRUD Semantics)
+
+  - GET -> Read data (no state change)
+  - POST -> Create new resource
+  - PUT -> Replace entire resource
+  - PATCH -> Partial update
+  - DELETE -> Remove resource
+  - Key properties:
+    - GET, PUT, DELETE -> idempotent
+    - POST -> not idempotent
+    - PATCH -> depends on implementation
+
+  Interview line:
+  | In REST, the HTTP method defines the action and the URL identifies
+  | the resource, enabling predictable CRUD semantics.
+
+----------------------------------------------------------------
+
+5. Statelessness
+
+  - REST APIs are stateless
+  - Server does not store client session state
+  - Every request contains all required information:
+    - Auth token
+    - Headers
+    - Parameters
+  - Enables horizontal scaling and fault tolerance
+
+  Interview line:
+  | REST APIs are stateless, meaning each request is independent
+  | and contains all information needed to be processed.
+
+----------------------------------------------------------------
+
+6. HTTP Status Codes
+
+  - Status codes communicate outcome, not data
+  - Categories:
+    - 2xx -> success
+    - 4xx -> client error
+    - 5xx -> server error
+  - Common codes:
+    - 200 OK
+    - 201 Created
+    - 204 No Content
+    - 400 Bad Request
+    - 401 Unauthorized
+    - 403 Forbidden
+    - 404 Not Found
+    - 409 Conflict
+    - 500 Internal Server Error
+    - 503 Service Unavailable
+
+  Interview line:
+  | HTTP status codes indicate whether a request succeeded, failed
+  | due to client error, or failed due to server error.
+
+----------------------------------------------------------------
+
+7. Idempotency
+
+  - Idempotent = same request repeated -> same final server state
+  - Important for retries, timeouts, network failures
+  - Method behavior:
+    - GET -> idempotent
+    - PUT -> idempotent
+    - DELETE -> idempotent
+    - POST -> not idempotent
+    - PATCH -> depends
+  - Used with:
+    - Retries
+    - Load balancers
+    - Distributed systems
+
+  Interview line:
+  | Idempotency means repeating the same request results in the same
+  | server state, which is critical for safe retries.
+
+================================================================
+
+Bucket 2 - Diagram-Only Summary (Mental Map)
+
+API Flow Inside App Server (Text Diagram)
+
+Client
+    |
+    | HTTP request (method, URL, headers, optional body)
+    v
+API Router
+    |
+    | Match method + URL
+    v
+Controller / Handler
+    |
+    | Validation
+    | Authentication / authorization
+    v
+Service Layer
+    |
+    | Business rules
+    | Idempotency enforcement
+    | Calls DB / other services
+    v
+Response
+    |
+    | Status code + JSON
+    v
+Client
