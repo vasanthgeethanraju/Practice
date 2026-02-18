@@ -1,0 +1,33 @@
+Every system design problem need to be approached in these 7 steps
+
+1. Clarify the problem
+2. Define scale
+3. Define APIs
+4. High-level design
+5. Deep dive
+6. Bottlenecks & tradeoffs
+7. Reliability & wrap-up
+
+And at the start of the interview, ask these
+
+When ANY design question starts, ask variations of:
+
+Who are the users?
+
+What core features must exist?
+
+What is NOT required initially?
+
+Expected scale (users/QPS)?
+
+Latency expectations?
+
+Read vs write ratio?
+
+Real-time or eventual consistency?
+
+Data persistence requirements?
+
+Global or regional system?
+
+Which area should we prioritize designing deeply?
